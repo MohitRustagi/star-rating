@@ -1,0 +1,110 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+
+
+<!--
+`star-rating`
+star rating
+
+@demo demo/index.html
+-->
+
+<dom-module id="star-rating">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+      }
+      iron-icon {
+        fill: rgba(0,0,0,0);
+        stroke: currentcolor;
+      }
+      :host div[pressed] iron-icon {
+        fill: red;
+      }
+
+    </style>
+      
+      <template is="dom-repeat" items="{{divRating}}" as="first">
+        <div id="{{index}}" on-tap='showUserRating'>
+          <template is="dom-repeat" items="{{first}}" as="second"> 
+            <iron-icon icon="star" ></iron-icon>
+          </template>  
+        </div>
+      </template>
+      <h2>User rating: [[userRating]]/[[maxRating]] </h2>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'star-rating',
+
+      properties: {
+        maxRating: {
+          type: Number,
+          reflectToAttribute: true,
+          value: 5
+        },
+        userRating: {
+          type: Number,
+          reflectToAttribute: true,
+          value: 0
+        },
+        pressed: {
+          type: Boolean,
+          value: true,
+          notify: true,
+          reflectToAttribute: true
+        }
+      },
+      ready: function() {
+        var rating = new Array();
+        for(var i=0; i<this.maxRating; i++) {
+          
+          var nstars = new Array();
+          
+          for(var j=0; j<=i; j++)
+            nstars.push('*');
+          
+          rating.push(nstars);
+        }
+        this.divRating = rating;
+      },
+      /* This event is generated on tapping
+       * on div element, which contains stars in a row
+      */
+      showUserRating(e) {
+        var newRating = parseInt(e.currentTarget.id) + 1,
+            fillColor = '',
+            oldStarNodes = '',
+            newStarNodes = '',
+            oldRating = (this.userRating <= 0 )? 0: this.userRating;
+        
+        
+        if(oldRating == newRating) {}
+        else {
+          /* if new rating is more than old rating
+           * fill the difference
+          */
+            if(oldRating < newRating ) {
+                var fillDifference = newRating - oldRating;
+                for(var i=oldRating; i < oldRating + fillDifference; i++) {
+                  document.getElementById(i.toString()).setAttribute('pressed', 'pressed')
+                }
+            } else if(newRating < oldRating) {
+                var fillDifference = newRating + oldRating;
+                for(var i=oldRating-1; i >= newRating; i--) {
+                  document.getElementById(i.toString()).removeAttribute('pressed');
+                }
+
+            }
+        
+            this.userRating = newRating;
+                                    
+        }
+      }
+
+    });
+  </script>
+</dom-module>
