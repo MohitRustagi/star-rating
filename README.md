@@ -23,7 +23,7 @@ Options:
 How to test?
 
 Clone this project.<br/>
-Install polynomial-cli and nodejs6 or 7<br/>
+Install polymer-cli and nodejs6 or 7<br/>
 go to base directory and run 'polynomial serve'.
 
 Enjoy!!
