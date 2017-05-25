@@ -24,6 +24,7 @@ How to test?
 
 Clone this project.<br/>
 Install polymer-cli and nodejs6 or 7<br/>
-go to base directory and run 'polynomial serve'.
+**Go to directory 'star-rating/polymersample'** and run '**polymer serve**'.<br/>
+Once server is up, go to url 'http://127.0.0.1:8081/components/star-rating/‘
 
 Enjoy!!
